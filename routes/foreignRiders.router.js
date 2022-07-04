@@ -2,12 +2,17 @@ const express = require('express');
 
 ridersController = require("../controllers/foreignRiders.controller");
 
-const ridersRouter = express.Router();
+const router = express.Router();
 
-ridersRouter.get(`/`, ridersController.all);
-ridersRouter.get(`/:id`, ridersController.viewOne);
-ridersRouter.post(`/`, ridersController.create);
-ridersRouter.put(`/:id`, ridersController.edit);
-ridersRouter.delete(`/:id`, ridersController.destroy);
+router
+    .route(`/`)
+    .get(ridersController.all)
+    .post(ridersController.create);
 
-module.exports = ridersRouter;
+router
+    .route(`/:id`)
+    .get(ridersController.viewOne)
+    .patch(ridersController.edit)
+    .delete(ridersController.destroy);
+
+module.exports = router;

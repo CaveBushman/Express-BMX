@@ -2,13 +2,25 @@ const express = require("express");
 
 usersController = require("../controllers/users.controller");
 
-const usersRouter = express.Router();
+const router = express.Router();
 
-usersRouter.get(`/`, usersController.all);
-usersRouter.get(`/:id`, usersController.viewOne);
-usersRouter.post(`/`, usersController.create);
-usersRouter.put(`/:id`, usersController.edit);
-usersRouter.delete(`/:id`, usersController.destroy);
-usersRouter.post('/login', usersController.login);
+router
+    .route(`/login`)
+    .post(usersController.login);
 
-module.exports = usersRouter;
+router
+    .route(`/singup`)
+    .post();
+
+router
+    .route(`/`)
+    .get(usersController.all)
+    .post(usersController.create);
+
+router
+    .route(`/:id`)
+    .get(usersController.viewOne)
+    .patch(usersController.edit)
+    .delete(usersController.destroy);
+
+module.exports = router;

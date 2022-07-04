@@ -82,6 +82,6 @@ exports.destroy = async function (req, res, next) {
         });
 };
 
-exports.getFreePlates = async function (req, res, next) { 
+exports.freePlates = async function (req, res, next) { 
     console.log("Volné startovní čísla")
 };

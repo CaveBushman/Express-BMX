@@ -2,12 +2,17 @@ const express = require("express");
 
 commissarsController = require(`../controllers/commissars.controler`);
 
-const commissarsRouter = express.Router();
+const router = express.Router();
 
-commissarsRouter.get(`/`, commissarsController.all);
-commissarsRouter.get(`/:id`, commissarsController.viewOne);
-commissarsRouter.post(`/`, commissarsController.create);
-commissarsRouter.put(`/:id`, commissarsController.edit);
-commissarsRouter.delete(`/:id`, commissarsController.destroy);
+router
+    .route(`/`)
+    .get(commissarsController.all)
+    .post(commissarsController.create);
 
-module.exports = commissarsRouter;
+router
+    .route(`/:id`)
+    .get(commissarsController.viewOne)
+    .patch(commissarsController.edit)
+    .delete(commissarsController.destroy);
+
+module.exports = router;

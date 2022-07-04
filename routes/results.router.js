@@ -2,12 +2,17 @@ const express = require("express");
 
 resultsController = require("../controllers/results.controller");
 
-const resultsRouter = express.Router();
+const router = express.Router();
 
-resultsRouter.get(`/`, resultsController.all);
-resultsRouter.get(`/:id`, resultsController.viewOne);
-resultsRouter.post(`/`, resultsController.create);
-resultsRouter.put(`/:id`, resultsController.edit);
-resultsRouter.delete(`/:id`, resultsController.destroy);
+router
+    .route(`/`)
+    .get(resultsController.all)
+    .post(resultsController.create);
 
-module.exports = resultsRouter;
+router
+    .route(`/:id`)
+    .get(resultsController.viewOne)
+    .patch(resultsController.edit)
+    .delete(resultsController.destroy);
+
+module.exports = router;

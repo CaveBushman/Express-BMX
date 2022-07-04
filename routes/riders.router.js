@@ -2,14 +2,22 @@ const express = require('express');
 
 ridersController = require("../controllers/riders.controller");
 
+const router = express.Router();
 const ridersRouter = express.Router();
 
-ridersRouter.get(`/`, ridersController.all);
-ridersRouter.get(`/:id`, ridersController.viewOne);
-ridersRouter.post(`/`, ridersController.create);
-ridersRouter.put(`/:id`, ridersController.edit);
-ridersRouter.delete(`/:id`, ridersController.destroy);
+router
+    .route(`/freeplates`)
+    .get(ridersController.freePlates);
 
-ridersRouter.get(`/freePlates`, ridersController.getFreePlates),
+router
+    .route(`/`)
+    .get(ridersController.all)
+    .post(ridersController.create);
 
-module.exports = ridersRouter;
+router
+    .route(`/:id`)
+    .get(ridersController.viewOne)
+    .patch(ridersController.edit)
+    .delete(ridersController.destroy);
+
+module.exports = router;

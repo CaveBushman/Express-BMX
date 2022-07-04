@@ -48,7 +48,7 @@ const api = process.env.API_URL;
 //MIDLEWARE
 
 app.use(express.json());
-app.use(authJwt());
+//app.use(authJwt());
 
 
 // DEVELOPMENT LOGGING

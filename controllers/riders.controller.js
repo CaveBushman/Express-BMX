@@ -83,5 +83,7 @@ exports.destroy = async function (req, res, next) {
 };
 
 exports.freePlates = async function (req, res, next) { 
-    console.log("Volné startovní čísla")
+    const fullPlates = (await Rider.find().select('plate')).map(rider => rider.plate)
+    const freePlatesArr = [...Array(1000).keys()].filter(i => !fullPlates.includes(i))
+    res.status(200).json({ freePlates: freePlatesArr })
 };

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Club = require("../models/clubModel");
 
 const riderSchema = mongoose.Schema({
   uciID: {
@@ -14,7 +15,7 @@ const riderSchema = mongoose.Schema({
     type: String,
     required: [true, "Rider must have a last name"],
   },
-  dob: {
+  dateOfBirth: {
     type: Date,
     required: [true, "Rider must have a date of birth"],
   },
@@ -85,6 +86,7 @@ const riderSchema = mongoose.Schema({
     },
   dateCreated: {
     type: Date,
+    immutable: true, 
     default: Date.now,
     },
 });

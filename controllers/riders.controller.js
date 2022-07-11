@@ -1,12 +1,16 @@
 const Rider = require(`../models/riderModel`);
 
 exports.all = async function (req, res, next) {
-    const ridersList = await Rider.find();
+    const ridersList = await Rider.find().populate(`club`).sort({lastName:1});
     console.log(ridersList);
     if(!ridersList) {
         res.status(500).json({ status: false });
     } 
-    res.status(200).send(ridersList);
+    res.status(200).json({
+        
+        status: "true",
+        data: ridersList
+    });
 
 };
 

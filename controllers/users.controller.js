@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 exports.all = async function (req, res, next) {
-  const usersList = await User.find();
+  const usersList = await User.find().select('-passwordHash');
 
   if (!usersList) {
     res.status(500).json({ status: false });
@@ -12,7 +12,7 @@ exports.all = async function (req, res, next) {
 };
 
 exports.viewOne = async function (req, res, next) {
-  const user = await User.findById(req.params.id);
+  const user = await User.findById(req.params.id).select('-passwordHash');
 
   if (!user) {
     res

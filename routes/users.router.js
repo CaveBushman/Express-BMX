@@ -4,13 +4,9 @@ usersController = require("../controllers/users.controller");
 
 const router = express.Router();
 
-router
-    .route(`/login`)
-    .post(usersController.login);
+router.route(`/login`).post(usersController.login);
 
-router
-    .route(`/singup`)
-    .post();
+router.route(`/singup`).post();
 
 router
     .route(`/`)

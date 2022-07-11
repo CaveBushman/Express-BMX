@@ -6,9 +6,9 @@ const newsSchema = mongoose.Schema({
     required: true,
   },
   content: String,
-    photo: {
-        type: String,
-        default: "akbmx.jpeg",
+  photo: {
+    type: String,
+    default: "akbmx.jpeg",
   },
   photo2: String,
   onHomepage: {
@@ -24,6 +24,11 @@ const newsSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  published: {
+    type: Boolean, 
+    default: false,
+  }
 });
 
-exports.News = mongoose.model("News", newsSchema);
+const News = mongoose.model("news", newsSchema, "news");
+module.exports = News;

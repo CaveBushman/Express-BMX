@@ -78,4 +78,16 @@ exports.destroy = async function (req, res, next) {
           });
 };
 
+exports.homepage = async function (req, res, next) {
 
+  try {
+    const newsList = await News.where("onHomepage").equals(true).where("published").equals(true);
+    console.log(newsList)
+    if (!newsList) {
+      res.status(500).json({ status: false });
+    }
+    res.status(200).send(newsList);
+  } catch (e) {
+    console.log(e.message)
+  }
+};

@@ -3,12 +3,15 @@ const Club = require(`../models/clubModel`);
 
 exports.all = async function (req, res, next) {
     
-    const clubsList = await Club.find();
+    const clubsList = await Club.find().sort({name:1});
 
     if(!clubsList) {
         res.status(500).json({status: false})
     } 
-    res.status(200).send(clubsList);
+    res.status(200).json({
+      status: "true",
+      data: clubsList,
+    });
 };
 
 exports.viewOne = async function (req, res, next) {

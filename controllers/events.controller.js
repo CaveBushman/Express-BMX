@@ -79,3 +79,8 @@ exports.destroy = async function (req, res, next) {
     });
 };
 
+exports.count = async function (req, res, next) {
+  const count = 40;
+  //TODO: Dodělat počítání závodů v danném roce
+  res.status(200).json({ success: true, data: count });
+};

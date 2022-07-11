@@ -10,6 +10,10 @@ router
     .post(clubsController.create);
 
 router
+    .route(`/count`)
+    .get(clubsController.count);
+
+router
     .route(`/:id`)
     .get(clubsController.viewOne)
     .patch(clubsController.edit)

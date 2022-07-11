@@ -86,6 +86,14 @@ exports.destroy = async function (req, res, next) {
         });
 };
 
-exports.freePlates = async function (req, res, next) { 
-    console.log("Volné startovní čísla")
+exports.freePlates = async function (req, res, next) {
+    const start = 10 
+    const usedPlates = (await Rider.find().select('plate')).map(rider => rider.plate)
+    const freePlatesArr = [...Array(1000 - start).keys()].map(i => i + start).filter(i => !usedPlates.includes(i))
+    res.status(200).json({ freePlates: freePlatesArr })
 };
+
+exports.count = async function (req, res, next) {
+    const count = await Rider.where({ isApprowed: true, isActive: true }).countDocuments();
+    res.status(200).json({ success: true, data: count });
+}

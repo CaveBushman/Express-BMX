@@ -73,6 +73,6 @@ exports.destroy = async function (req, res, next) {
 };
 
 exports.count = async function (req, res, next) {
-  const count = await Club.where({ isActive: true }).countDocuments();
-  res.status(200).json({ success: true, count: count });
+  const count = await Club.where({ isActive: true }).countDocuments() - 1; //bez klubové příslušnosti odečten
+  res.status(200).json({ success: true, data: count });
 }

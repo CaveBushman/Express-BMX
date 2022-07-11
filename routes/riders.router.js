@@ -9,6 +9,8 @@ router
     .route(`/freeplates`)
     .get(ridersController.freePlates);
 
+router.route(`/count`).get(ridersController.count);
+
 router
     .route(`/`)
     .get(ridersController.all)

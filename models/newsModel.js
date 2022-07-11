@@ -15,7 +15,7 @@ const newsSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  createdBy: {
+  author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,

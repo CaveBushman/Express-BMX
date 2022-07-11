@@ -11,6 +11,11 @@ router
     .post(eventsController.create);
 
 router
+
+    .route(`/count`)
+    .get(eventsController.count);
+
+router
     .route(`/:id`)
     .get(eventsController.viewOne)
     .patch(eventsController.edit)

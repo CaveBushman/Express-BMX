@@ -82,8 +82,9 @@ exports.destroy = async function (req, res, next) {
         });
 };
 
-exports.freePlates = async function (req, res, next) { 
-    const fullPlates = (await Rider.find().select('plate')).map(rider => rider.plate)
-    const freePlatesArr = [...Array(1000).keys()].filter(i => !fullPlates.includes(i))
+exports.freePlates = async function (req, res, next) {
+    const start = 10 
+    const usedPlates = (await Rider.find().select('plate')).map(rider => rider.plate)
+    const freePlatesArr = [...Array(1000 - start).keys()].map(i => i + start).filter(i => !usedPlates.includes(i))
     res.status(200).json({ freePlates: freePlatesArr })
 };

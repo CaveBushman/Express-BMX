@@ -16,12 +16,12 @@ exports.all = async function (req, res, next) {
 
 exports.viewOne = async function (req, res, next) {
     
-    const rider = await Rider.findById(req.params.id);
+    const rider = await Rider.findById(req.params.id).populate(`club`);
 
     if (!rider) {
         res.status(500).json({ message: 'The rider with the given ID was not found.' })
     }
-    res.status(200).send(rider);
+    res.status(200).json({ success: true, data: rider });
 };
 
 exports.create = async function (req, res, next) {

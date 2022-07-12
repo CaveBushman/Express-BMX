@@ -1,7 +1,8 @@
 const News = require(`../models/newsModel`);
 
 exports.all = async function (req, res, next) {
-  const newsList = await News.find();
+  const newsList = await News.find().populate(`author`);
+  console.log(newsList)
 
   if (!newsList) {
     res.status(500).json({ success: false })
@@ -92,7 +93,7 @@ exports.homepage = async function (req, res, next) {
 };
 
 exports.allPublished = async function (req, res, next) {
-  const newsList = await News.find({ published: true });
+  const newsList = await News.find({ published: true }).populate(`author`);
 
   if (!newsList) {
     res.status(500).json({ success: false });

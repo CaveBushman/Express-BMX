@@ -13,14 +13,13 @@ const newsSchema = mongoose.Schema({
   photo2: String,
   onHomepage: {
     type: Boolean,
-    default: false,
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
-  dateCreated: {
+  created: {
     type: Date,
     default: Date.now,
   },

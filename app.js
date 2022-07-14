@@ -1,9 +1,9 @@
 //IMPORT PACKAGES
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv')
-const morgan = require('morgan')
-const cors = require('cors');
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const morgan = require("morgan");
+const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 
@@ -22,23 +22,22 @@ app.enable("trust proxy");
 // SET SECURITY HTTP HEADERS
 app.use(helmet());
 
-
 // LIMIT REQUESTS FROM SAME API
 const limiter = rateLimit({
   max: 100,
   windowMs: 60 * 60 * 1000,
-  message: 'Too many requests from this IP, please try again in an hour!'
+  message: "Too many requests from this IP, please try again in an hour!",
 });
-app.use('/api', limiter);
+app.use("/api", limiter);
 
 //CORS
 
 app.use(cors());
-app.options('*', cors());
+app.options("*", cors());
 
 //CONFIGURATION SERVER
 
-dotenv.config({ path: './config.env' });
+dotenv.config({ path: "./config.env" });
 
 //VARIABLES
 
@@ -50,12 +49,10 @@ const api = process.env.API_URL;
 app.use(express.json());
 //app.use(authJwt());
 
-
 // DEVELOPMENT LOGGING
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('tiny'));
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("tiny"));
 }
-
 
 // TEST MIDDLEWARE
 
@@ -65,10 +62,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// DATABASE 
+// DATABASE
 
-const DB = process.env.DATABASE.replace (
-  '<PASSWORD>',
+const DB = process.env.DATABASE.replace(
+  "<PASSWORD>",
   process.env.DATABASE_PASSWORD
 );
 
@@ -79,7 +76,6 @@ mongoose
     useNewUrlParser: true,
   })
   .then(() => console.log("DB connection successful!"));
- 
 
 // ROUTERS
 
@@ -104,7 +100,6 @@ app.use(`${api}/results`, resultsRouter);
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
-
 
 // SERVER APP
 

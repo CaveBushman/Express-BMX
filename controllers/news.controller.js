@@ -100,3 +100,8 @@ exports.allPublished = async function (req, res, next) {
   }
   res.status(200).json({ success: true, data: newsList });
 };
+
+exports.count = async function (req, res, next) {
+  const count = await News.where({ published: true }).countDocuments();
+  res.status(200).json({ success: true, data: count });
+};

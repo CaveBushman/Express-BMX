@@ -4,7 +4,7 @@ exports.all = async function (req, res, next) {
   const resultsList = await Result.find();
 
   if (!resultsList) {
-    res.status(500).json({ status: false });
+    res.status(500).json({ success: false });
   }
   res.status(200).send(resultsList);
 };
@@ -15,9 +15,9 @@ exports.viewOne = async function (req, res, next) {
   if (!result) {
     res
       .status(500)
-      .json({ message: "The result with the given ID was not found." });
+      .json({ success: false, message: "The result with the given ID was not found." });
   }
-  res.status(200).send(result);
+  res.status(200).json({ success: true, data: result });
 };
 
 exports.create = async function (req, res, next) {
@@ -26,12 +26,12 @@ exports.create = async function (req, res, next) {
 
   if (!result)
     return res.status(400).json({
-      status: "false",
+      success: true,
       message: "The result cannot be created!",
     });
 
   res.status(201).json({
-    status: "success",
+    success: true,
     data: result,
   });
 };

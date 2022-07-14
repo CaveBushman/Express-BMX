@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 exports.all = async function (req, res, next) {
-  const usersList = await User.find().select('-passwordHash');
+  const usersList = await User.find().select("-passwordHash");
 
   if (!usersList) {
     res.status(500).json({ status: false });
@@ -12,7 +12,7 @@ exports.all = async function (req, res, next) {
 };
 
 exports.viewOne = async function (req, res, next) {
-  const user = await User.findById(req.params.id).select('-passwordHash');
+  const user = await User.findById(req.params.id).select("-passwordHash");
 
   if (!user) {
     res
@@ -83,25 +83,25 @@ exports.destroy = async function (req, res, next) {
 };
 
 exports.login = async function (req, res, next) {
-  const user = await User.findOne({ email: req.body.email })
+  const user = await User.findOne({ email: req.body.email });
   const secret = process.env.secret;
   console.log(user);
   if (!user) {
-    return res.status(400).send('The user not found');
+    return res.status(400).send("The user not found");
   }
-  
- if (user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
-   const token = jwt.sign(
-     {
-       userId: user._id,
-       isAdmin: user.isAdmin,
-     },
-     secret,
-     { expiresIn: "1d" }
-   );
 
-   res.status(200).send({ user: user.email, token: token });
- } else {
-   res.status(400).send("password is wrong!");
- }
+  if (user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
+    const token = jwt.sign(
+      {
+        userId: user._id,
+        isAdmin: user.isAdmin,
+      },
+      secret,
+      { expiresIn: "1d" }
+    );
+
+    res.status(200).send({ user: user.email, token: token });
+  } else {
+    res.status(400).send("password is wrong!");
+  }
 };

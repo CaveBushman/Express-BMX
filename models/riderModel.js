@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Club = require("../models/clubModel");
+const Club = require("./clubModel");
 
 const riderSchema = mongoose.Schema({
   uciID: {

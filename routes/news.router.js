@@ -11,6 +11,7 @@ router
 
 router.route(`/homepage`).get(newsController.homepage);
 router.route(`/published`).get(newsController.allPublished);
+router.route(`/count`).get(newsController.count);
 
 router
   .route(`/:id`)

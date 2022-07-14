@@ -4,9 +4,9 @@ exports.all = async function (req, res, next) {
   const commissarsList = await Commissar.find();
 
   if (!commissarsList) {
-    res.status(500).json({ status: false })
+    res.status(500).json({ success: false })
   }
-  res.status(200).send(commissarsList);
+  res.status(200).json({ success: true, data: commissarsList });
 };
 
 exports.viewOne = async function (req, res, next) {
@@ -14,7 +14,7 @@ exports.viewOne = async function (req, res, next) {
   const commissar = await Commissar.findById(req.params.id);
 
   if (!commissar) {
-    res.status(500).json({ message: 'The commissar with the given ID was not found.' })
+    res.status(500).json({ success: false, message: 'The commissar with the given ID was not found.' })
   }
   res.status(200).send(commissar);
 };
@@ -28,13 +28,13 @@ exports.create = async function (req, res, next) {
 
   if (!commissar)
     return res.status(400).json({
-      status: "false",
+      succes: false,
       message: "The commissar cannot be created!",
     });
 
   res.status(201).json({
         
-    status: "success",
+    success: true,
     data: commissar,
 
   });

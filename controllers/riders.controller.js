@@ -102,7 +102,6 @@ exports.getByUCIID = async function(req, res, next) {
     if(req.params.uciid.length !== 11) return res.status(404).json({ success: false, message: 'Invalid UCIID.' })
     const uciid = req.params.uciid;
     const rider = await Rider.findOne({ uciid: parseInt(uciid) })
-    console.log(rider)
     if(!rider) return res.status(404).json({ success: false, message: 'The rider with the given UCIID was not found.' })
     res.status(200).json({ success: true, data: rider })
 }

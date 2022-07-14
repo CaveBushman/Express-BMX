@@ -22,4 +22,8 @@ router
     .patch(ridersController.edit)
     .delete(ridersController.destroy);
 
+router
+    .route('/uciid/:uciid')
+    .get(ridersController.getByUCIID)
+
 module.exports = router;

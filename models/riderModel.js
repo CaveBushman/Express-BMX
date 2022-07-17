@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Club = require("./clubModel");
 
 const riderSchema = mongoose.Schema({
-  uciID: {
+  uciid: {
     type: Number,
     required: [true, "Rider must have a UCI ID"],
     unique: true,

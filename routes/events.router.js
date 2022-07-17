@@ -4,6 +4,8 @@ eventsController = require("../controllers/events.controller");
 
 const router = express.Router();
 
+router.route(`/year/:year`).get(eventsController.allByYear)
+
 router
 
     .route(`/`)

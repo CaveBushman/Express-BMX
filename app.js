@@ -87,6 +87,7 @@ const eventsRouter = require("./routes/events.router");
 const usersRouter = require("./routes/users.router");
 const commissarsRouter = require("./routes/commissars.router");
 const resultsRouter = require("./routes/results.router");
+const eventsClassesRouter = require(`./routes/eventClassesRouter`)
 
 app.use(`${api}/riders`, ridersRouter);
 app.use(`${api}/foreignRiders`, foreignRidersRouter);
@@ -96,6 +97,7 @@ app.use(`${api}/events`, eventsRouter);
 app.use(`${api}/users`, usersRouter);
 app.use(`${api}/commissars`, commissarsRouter);
 app.use(`${api}/results`, resultsRouter);
+app.use(`${api}/eventclasses`, eventsClassesRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

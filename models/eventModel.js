@@ -14,8 +14,8 @@ const eventSchema = mongoose.Schema({
     required: true,
   },
 
-  typeOfEvent: String,
-  isUCIevent: {
+  rankingType: String,
+  isUciEvent: {
     type: Boolean,
     default: false,
   },
@@ -23,12 +23,37 @@ const eventSchema = mongoose.Schema({
   proposition: String,
   backupBEM: String,
   backupBEM2: String,
-  resultXLS: String, 
-  resultsPDF: String, 
-  fastRiders: String, 
-  resultSeries: String, 
+  resultXLS: String,
+  resultsPDF: String,
+  fastRiders: String,
+  resultSeries: String,
 
-  isCanceled: {
+  commissionFee: Number,
+
+  pcp: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Commissar",
+    required: true,
+  },
+
+  apcp: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Commissar",
+    required: true,
+  },
+
+  eventClasses: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "EventClasses",
+  },
+
+  isRegOpen: {
+    type: Boolean,
+    default: false
+  },
+  regOpenTo: Date,
+
+  canceled: {
     type: Boolean,
     default: false,
   },

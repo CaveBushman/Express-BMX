@@ -11,6 +11,12 @@ router
 
 router.route(`/count`).get(ridersController.count);
 
+router.route("/uciid/:uciid").get(ridersController.getByUCIID);
+
+router.route(`/valid`).get(ridersController.allValid);
+
+router.route(`/toapprowe`).get(ridersController.toApprowe);
+
 router
     .route(`/`)
     .get(ridersController.all)
@@ -21,5 +27,6 @@ router
     .get(ridersController.viewOne)
     .patch(ridersController.edit)
     .delete(ridersController.destroy);
+
 
 module.exports = router;

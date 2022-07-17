@@ -2,7 +2,19 @@ const Rider = require(`../models/riderModel`);
 
 exports.all = async function (req, res, next) {
   const ridersList = await Rider.find().populate(`club`).sort({ lastName: 1 });
-  console.log(ridersList);
+  if (!ridersList) {
+    res.status(500).json({ status: false });
+  }
+  res.status(200).json({
+    status: "true",
+    data: ridersList,
+  });
+};
+
+exports.allValid = async function (req, res, next) {
+  const ridersList = await Rider.find({ isApprowe: true, isActive: true })
+    .populate(`club`)
+    .sort({ lastName: 1 });
   if (!ridersList) {
     res.status(500).json({ status: false });
   }
@@ -24,20 +36,22 @@ exports.viewOne = async function (req, res, next) {
 };
 
 exports.create = async function (req, res, next) {
-  const rider = new Rider({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
+  console.log({ ...req.body });
+  let rider = new Rider({
+    ...req.body,
   });
   rider = await rider.save();
 
   if (!rider)
     return res.status(400).json({
-      status: "false",
+      success: false,
       message: "The rider cannot be created!",
     });
 
+  // TODO:  send e-mail Komisi BMX
+  
   res.status(201).json({
-    status: "success",
+    success: true,
     data: rider,
   });
 };
@@ -97,6 +111,26 @@ exports.count = async function (req, res, next) {
   const count = await Rider.where({
     isApprowed: true,
     isActive: true,
+  }).countDocuments();
+  res.status(200).json({ success: true, data: count });
+};
+
+exports.getByUCIID = async function (req, res, next) {
+  if (req.params.uciid.length !== 11)
+    return res.status(404).json({ success: false, message: "Invalid UCI ID." });
+  const uciid = req.params.uciid;
+  const rider = await Rider.findOne({ uciid: parseInt(uciid) });
+  if (!rider)
+    return res.status(404).json({
+      success: false,
+      message: "The rider with the given UCI ID was not found.",
+    });
+  res.status(200).json({ success: true, data: rider });
+};
+
+exports.toApprowe = async function (req, res, next) {
+  const count = await Rider.where({
+    isApprowe: false,
   }).countDocuments();
   res.status(200).json({ success: true, data: count });
 };

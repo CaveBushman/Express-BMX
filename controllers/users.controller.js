@@ -100,7 +100,9 @@ exports.login = async function (req, res, next) {
       { expiresIn: "1d" }
     );
 
-    res.status(200).send({ user: user.email, token: token });
+    user.passwordHash = undefined
+
+    res.status(200).send({ user: user, token: token });
   } else {
     res.status(400).send("password is wrong!");
   }

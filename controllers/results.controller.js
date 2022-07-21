@@ -6,7 +6,7 @@ exports.all = async function (req, res, next) {
   if (!resultsList) {
     res.status(500).json({ success: false });
   }
-  res.status(200).send(resultsList);
+  res.status(200).json({ success: true, data: resultsList });
 };
 
 exports.viewOne = async function (req, res, next) {

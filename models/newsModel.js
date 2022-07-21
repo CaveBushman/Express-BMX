@@ -19,6 +19,7 @@ const newsSchema = mongoose.Schema({
     ref: "User",
     required: true,
   },
+  timeToRead: Number,
   created: {
     type: Date,
     default: Date.now,

@@ -3,20 +3,17 @@ const mongoose = require("mongoose");
 const resultSchema = mongoose.Schema({
 
     event: {
-
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Event',
+        require: true
     },
-    name: String, 
-    date: Date,
-    event_type: String, 
-    organizer: {
-        
-    },
+    
     rider: {
-
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Rider",
+        require: true
     },
-    club: {
 
-    },
     category: String,
     place: Number,
     points: Number,
@@ -24,9 +21,10 @@ const resultSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
-    marked_20: Number,
-    marked_24: Number,
-
+    marked: {
+        type: Boolean,
+        default: false
+    },
 });
 
 exports.Result = mongoose.model("Result", resultSchema);

@@ -17,6 +17,10 @@ router.route(`/valid`).get(ridersController.allValid);
 
 router.route(`/toapprowe`).get(ridersController.toApprowe);
 
+router.route(`/isvalidlicence/:uciid`).get(ridersController.isValidLicence);
+
+router.route(`/ridersinclub/:id`).get(ridersController.ridersInClub);
+
 router
     .route(`/`)
     .get(ridersController.all)

@@ -1,4 +1,9 @@
 const Rider = require(`../models/riderModel`);
+const Club = require(`..//models/clubModel`);
+const http = require("http");
+const request = require("request");
+const { default: mongoose } = require("mongoose");
+const User = require("../models/userModel");
 
 exports.all = async function (req, res, next) {
   const ridersList = await Rider.find().populate(`club`).sort({ lastName: 1 });
@@ -49,7 +54,7 @@ exports.create = async function (req, res, next) {
     });
 
   // TODO:  send e-mail Komisi BMX
-  
+
   res.status(201).json({
     success: true,
     data: rider,
@@ -132,5 +137,57 @@ exports.toApprowe = async function (req, res, next) {
   const count = await Rider.where({
     isApprowe: false,
   }).countDocuments();
+  res.status(200).json({ success: true, data: count });
+};
+
+exports.isValidLicence = async function (req, res, next) {
+  const uciid = req.params.uciid;
+  const year = new Date().getFullYear();
+  const URL =
+    "https://data.ceskysvazcyklistiky.cz/licence-api/is-valid?uciId=" +
+    uciid +
+    "&year=" +
+    year;
+  var username = "licence";
+  var password = "$df!thhj!J:h";
+  var auth =
+    "Basic " + new Buffer(username + ":" + password).toString("base64");
+
+  request.get(
+    {
+      url: URL,
+      headers: {
+        Authorization: auth,
+      },
+    },
+    function (error, response, body) {
+      if (error || body.includes("NotFound")) {
+        return res.status(404).json({ success: false });
+      }
+      return res.status(200).json({ success: true, data: body });
+    }
+  );
+};
+
+exports.ridersInClub = async function (req, res, next) {
+
+  const club = await Club.findById(req.params.id)
+
+  const riders = await Rider.find({
+    isActive: true,
+    isApprowe: true,
+  })
+    .populate({
+      path: "club",
+    });
+  
+  let count = 0;
+  
+  for (const rider of riders) {
+    if (rider.club.name == club.name) {
+      count ++
+    }
+  }
+    
   res.status(200).json({ success: true, data: count });
 };

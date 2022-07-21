@@ -10,7 +10,7 @@ exports.all = async function (req, res, next) {
 };
 
 exports.viewOne = async function (req, res, next) {
-  const event = await Event.findById(req.params.id).populate('organizer');
+  const event = await Event.findById(req.params.id).populate('organizer').populate('eventClasses');
 
   if (!event) {
     res
